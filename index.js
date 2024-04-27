@@ -19,6 +19,10 @@ newBookBtn.addEventListener("click", function () {
 
 closeWindowBtn.addEventListener("click", function () {
   newBookWindow.close();
+  author.value = "";
+  title.value = "";
+  numPages.value = null;
+  read.checked = false;
 });
 
 submitBtn.addEventListener("click", function (event) {
@@ -32,6 +36,7 @@ submitBtn.addEventListener("click", function (event) {
   newBookWindow.close();
   displayBooks(myLibrary);
   addRemoveBtnListeners();
+  addReadBtnListeners();
 });
 
 // Constructors
@@ -41,6 +46,10 @@ function Book(author, title, numPages, read) {
     (this.numPages = numPages),
     (this.read = read);
 }
+
+Book.prototype.switchRead = function (readStatus) {
+  this.read = !readStatus;
+};
 
 // Functions
 function addBookToLibrary(author, title, numPages, read) {
@@ -59,6 +68,9 @@ function displayBooks(library) {
           <p class="author">${book.author}</p>
           <p class="pages">${book.numPages}</p>
           <p class="read">${book.read ? "Read" : "Not Read"}</p>
+          <button class="readBtn" id="${i}">${
+      book.read ? "Mark Unread" : "Mark Read"
+    }</button>
           <button class="rmBtn" id=${i}>Remove Book</button>`;
     booksContainer.appendChild(bookCard);
   }
@@ -66,11 +78,11 @@ function displayBooks(library) {
 
 function addRemoveBtnListeners() {
   const handleClick = function (e) {
-    console.log("clicked");
     console.log(e.target.id);
     myLibrary.splice(e.target.id, 1);
     displayBooks(myLibrary);
     addRemoveBtnListeners();
+    addReadBtnListeners();
   };
   const removeBookBtns = document.querySelectorAll(".rmBtn");
 
@@ -80,7 +92,23 @@ function addRemoveBtnListeners() {
   });
 }
 
-// Manual Implementation - to be deleted later
+function addReadBtnListeners() {
+  const handleClick = function (e) {
+    const index = e.target.id;
+    myLibrary[index].switchRead(myLibrary[index].read);
+    displayBooks(myLibrary);
+    addRemoveBtnListeners();
+    addReadBtnListeners();
+  };
+  const readBookBtns = document.querySelectorAll(".readBtn");
+
+  readBookBtns.forEach((button) => {
+    button.removeEventListener("click", handleClick);
+    button.addEventListener("click", handleClick);
+  });
+}
+
+// Manual Implementation
 addBookToLibrary(
   "Helen Czerski",
   "Storm in a Teacup: The Physics of Everyday Life",
@@ -99,5 +127,4 @@ addBookToLibrary(
 
 displayBooks(myLibrary);
 addRemoveBtnListeners();
-
-// Event Listeners for Book Cards
+addReadBtnListeners();
