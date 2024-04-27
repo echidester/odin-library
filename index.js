@@ -1,5 +1,36 @@
+// Variables
 const myLibrary = [];
 
+// DOM Elements
+const newBookBtn = document.querySelector(".newBookBtn");
+const newBookWindow = document.querySelector(".newBookWindow");
+const closeWindowBtn = document.querySelector(".closeWindow");
+const submitBtn = document.querySelector(".submitBtn");
+const title = document.querySelector("#title");
+const author = document.querySelector("#author");
+const numPages = document.querySelector("#numPages");
+const read = document.querySelector("#read");
+const booksContainer = document.querySelector(".books");
+const removeBook = document.querySelector(".rmBtn");
+
+// Event Listeners
+newBookBtn.addEventListener("click", function () {
+  newBookWindow.showModal();
+});
+
+closeWindowBtn.addEventListener("click", function () {
+  newBookWindow.close();
+});
+
+submitBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  addBookToLibrary(author.value, title.value, numPages.value, read.checked);
+  newBookWindow.close();
+  displayBooks(myLibrary);
+});
+
+// Constructors
 function Book(author, title, numPages, read) {
   (this.author = author),
     (this.title = title),
@@ -7,12 +38,27 @@ function Book(author, title, numPages, read) {
     (this.read = read);
 }
 
+// Functions
 function addBookToLibrary(author, title, numPages, read) {
-  // take a user's input and store the new book objects into an array
   let book = new Book(author, title, numPages, read);
   myLibrary.push(book);
 }
 
+function displayBooks(library) {
+  document.querySelector(".books").innerHTML = "";
+  for (let i = 0; i < library.length; i++) {
+    let book = library[i];
+    let bookCard = document.createElement("div");
+    bookCard.classList.add("book-card");
+    bookCard.innerHTML = `
+          <h3 class="title">${book.title}</h3>
+          <p class="author">${book.author}</p>
+          <p class="pages">${book.numPages}</p>
+          <p class="read">${book.read ? "Read" : "Not Read"}</p>`;
+    booksContainer.appendChild(bookCard);
+  }
+}
+// Manual Implementation - to be deleted later
 addBookToLibrary(
   "Helen Czerski",
   "Storm in a Teacup: The Physics of Everyday Life",
@@ -27,16 +73,6 @@ addBookToLibrary(
   true
 );
 
-console.log(myLibrary);
+// Build Application
 
-for (let i = 0; i < myLibrary.length; i++) {
-  let book = myLibrary[i];
-  let bookDiv = document.createElement("div");
-  bookDiv.classList.add("book-card");
-  bookDiv.innerHTML = `
-    <h3 class="title">${book.title}</h3>
-    <p class="author">${book.author}</p>
-    <p class="pages">${book.numPages}</p>
-    <p class="read">${book.read ? "Read" : "Not Read"}</p>`;
-  document.querySelector(".books").appendChild(bookDiv);
-}
+displayBooks(myLibrary);
