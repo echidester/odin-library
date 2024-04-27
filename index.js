@@ -11,7 +11,6 @@ const author = document.querySelector("#author");
 const numPages = document.querySelector("#numPages");
 const read = document.querySelector("#read");
 const booksContainer = document.querySelector(".books");
-const removeBook = document.querySelector(".rmBtn");
 
 // Event Listeners
 newBookBtn.addEventListener("click", function () {
@@ -26,8 +25,13 @@ submitBtn.addEventListener("click", function (event) {
   event.preventDefault();
 
   addBookToLibrary(author.value, title.value, numPages.value, read.checked);
+  author.value = "";
+  title.value = "";
+  numPages.value = null;
+  read.checked = false;
   newBookWindow.close();
   displayBooks(myLibrary);
+  addRemoveBtnListeners();
 });
 
 // Constructors
@@ -54,10 +58,28 @@ function displayBooks(library) {
           <h3 class="title">${book.title}</h3>
           <p class="author">${book.author}</p>
           <p class="pages">${book.numPages}</p>
-          <p class="read">${book.read ? "Read" : "Not Read"}</p>`;
+          <p class="read">${book.read ? "Read" : "Not Read"}</p>
+          <button class="rmBtn" id=${i}>Remove Book</button>`;
     booksContainer.appendChild(bookCard);
   }
 }
+
+function addRemoveBtnListeners() {
+  const handleClick = function (e) {
+    console.log("clicked");
+    console.log(e.target.id);
+    myLibrary.splice(e.target.id, 1);
+    displayBooks(myLibrary);
+    addRemoveBtnListeners();
+  };
+  const removeBookBtns = document.querySelectorAll(".rmBtn");
+
+  removeBookBtns.forEach((button) => {
+    button.removeEventListener("click", handleClick);
+    button.addEventListener("click", handleClick);
+  });
+}
+
 // Manual Implementation - to be deleted later
 addBookToLibrary(
   "Helen Czerski",
@@ -76,3 +98,6 @@ addBookToLibrary(
 // Build Application
 
 displayBooks(myLibrary);
+addRemoveBtnListeners();
+
+// Event Listeners for Book Cards
