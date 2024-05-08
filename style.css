@@ -1,0 +1,107 @@
+/* Colors
+dark green: 1A4D2E
+green: 4F6F52
+beige: E8DFCA
+light beige: F5EFE6
+*/
+
+body {
+  background-color: #f5efe6;
+  margin: 0;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5rem;
+  width: 90vw;
+  padding: 0 5vw;
+  background-color: #4f6f52;
+}
+
+.header-text {
+  color: #e8dfca;
+  font-family: Platypi, serif;
+  font-weight: 300;
+}
+
+.newBookBtn {
+  height: 50%;
+  padding: 0rem 1rem;
+  background-color: #4f6f52;
+  border: 2px solid #e8dfca;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.newBookWindow {
+  width: 40vw;
+  padding: 0.5rem 0rem;
+}
+
+.closeWindow {
+  width: 40px;
+  float: right;
+  background-color: white;
+  border: none;
+}
+
+.closeIcon {
+  height: 10px;
+}
+
+.newBookForm {
+  clear: both;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+h2 {
+  margin: 0 5vw;
+  font-family: Teachers, sans-serif;
+  font-weight: 300;
+  padding: 3rem 0 1rem 0;
+}
+
+.book-card {
+  border: 1px solid black;
+  margin: 0 5vw;
+  font-family: Teachers, sans-serif;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+}
+
+.title {
+  margin: 0;
+  font-weight: 600;
+}
+
+.author {
+  font-weight: 400;
+  font-style: italic;
+}
+
+.btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.readBtn {
+  border: 1.5px solid #1a4d2e;
+  border-radius: 5px;
+  background-color: #1a4d2e;
+  color: #f5efe6;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+}
+
+.rmBtn {
+  border: 1.5px solid #1a4d2e;
+  border-radius: 5px;
+  background-color: #f5efe6;
+  color: #1a4d2e;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+}

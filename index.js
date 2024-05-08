@@ -64,14 +64,16 @@ function displayBooks(library) {
     let bookCard = document.createElement("div");
     bookCard.classList.add("book-card");
     bookCard.innerHTML = `
-          <h3 class="title">${book.title}</h3>
-          <p class="author">${book.author}</p>
-          <p class="pages">${book.numPages}</p>
+          <h3 class="title">${book.title}, <span class="author">${
+      book.author
+    }</span></h3>
+          <p class="pages">${book.numPages} pages</p>
           <p class="read">${book.read ? "Read" : "Not Read"}</p>
+          <div class="btns">
           <button class="readBtn" id="${i}">${
       book.read ? "Mark Unread" : "Mark Read"
     }</button>
-          <button class="rmBtn" id=${i}>Remove Book</button>`;
+          <button class="rmBtn" id=${i}>Remove Book</button></div>`;
     booksContainer.appendChild(bookCard);
   }
 }
